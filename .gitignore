@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+.idea
+src/common/assets/sass/ethlend-dapp.cs
+build/
