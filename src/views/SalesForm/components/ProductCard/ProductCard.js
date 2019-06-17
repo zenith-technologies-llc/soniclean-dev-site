@@ -1,30 +1,16 @@
 import React, { Component } from 'react';
 import classNames from 'classnames'
 import {
-    Badge,
     Button,
-    ButtonDropdown,
-    ButtonGroup,
-    ButtonToolbar,
     Card,
     CardBody,
     CardFooter,
     CardHeader,
-    CardTitle,
     Col,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Progress,
     Row,
-    Table,
     Input,
     InputGroup,
     InputGroupAddon,
-    InputGroupText,
-    UncontrolledTooltip,
-    Tooltip,
     Modal,
     ModalHeader,
     ModalBody,
@@ -48,33 +34,74 @@ class ProductCard extends Component {
         }
     }
 
+    componentDidMount = () => {
+        if(this.props.type === 'multiple')
+            this.getQuantity()
+        else
+            this.getStatus()
+    }
+
+    getStatus = () => {
+        let shipIndex = this.props.ship
+        var index = shipIndex.indexOf(this.props.productIndex);
+        if (index !== -1) this.setState({selected: true})
+        else this.setState({selected: false})
+    }
+
+    getQuantity = () => {
+        var arr = this.props.inventory.reduce(function (prev, cur) {
+            prev[cur] = (prev[cur] || 0) + 1;
+            return prev;
+        }, {});
+        if (arr[this.props.productIndex]!==undefined) {
+            this.setState({ 
+                quantity: arr[this.props.productIndex] * this.props.data.multiples, 
+                selected: true 
+            })    
+        } else {
+            this.setState({ 
+                quantity: 0, selected: false 
+            })
+        }
+    } 
+
     onSelect = (index) => {
         if (this.props.type !=='multiple') {
             this.setState({ selected: !this.state.selected })
-            this.props.onSelectProduct(index, !this.state.selected)
+            this.props.onSelectProduct(index, 0,!this.state.selected)
         }
     }
 
     onPlus = (index) => {
-        this.setState({ quantity: this.state.quantity + this.props.data.multiples})
-        if(this.state.quantity===0) {
+        let counts = this.state.quantity + this.props.data.multiples
+        this.setState({ quantity: counts})
+        this.props.onSelectProduct(index, counts, 'plus')
+        if (this.state.quantity === 0) {
             this.setState({ selected: true })
-            this.props.onSelectProduct(index, true)
         }
     }
 
     onMinus = (index) => {
+        let counts;
         if (this.state.quantity !== 0) {
-            this.setState({ quantity: this.state.quantity - this.props.data.multiples })
+            counts = this.state.quantity - this.props.data.multiples
+            this.setState({ quantity: counts })
+            this.props.onSelectProduct(index, counts, 'minus')
         }
         if (this.state.quantity === this.props.data.multiples) {
             this.setState({ selected: false })
-            this.props.onSelectProduct(index, false)
         }
     }
 
     toggleModal = () => {
         this.setState({modal: !this.state.modal})
+    }
+
+    componentWillReceiveProps = (prevProps, nextProps) => {
+        if (this.props.type === 'multiple')
+            this.getQuantity()
+        else
+            this.getStatus()
     }
 
     render() {

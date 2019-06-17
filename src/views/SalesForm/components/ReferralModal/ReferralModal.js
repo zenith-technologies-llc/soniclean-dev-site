@@ -27,6 +27,12 @@ const validationSchema = function (values) {
         email: Yup.string()
             .email('Invalid email address')
             .required('Email is required!'),
+        firstName: Yup.string()
+            .min(2, `First name has to be at least 2 characters`)
+            .required('First name is required'),
+        lastName: Yup.string()
+            .min(1, `Last name has to be at least 1 character`)
+            .required('Last name is required'),
         
     })
 }
@@ -54,7 +60,9 @@ const getErrorsFromValidationError = (validationError) => {
 }
 
 const initialValues = {
-    email: ''
+    email: '',
+    firstName: '',
+    lastName: ''
 }
 
 
@@ -65,7 +73,10 @@ class ReferralModal extends Component {
         super(props)
         this.touchAll = this.touchAll.bind(this)
         this.state = {
-            submitSuccess: false
+            submitSuccess: false,
+            email: '',
+            firstName: '',
+            lastname: ''
         }
     }
 
@@ -93,16 +104,22 @@ class ReferralModal extends Component {
     }
 
     onSubmit = (values, { setSubmitting, setErrors }) => {
+        this.setState({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email
+        })
         setTimeout(() => {
             this.setState({ submitSuccess: true})
             setSubmitting(false)
-        }, 2000)
+        }, 5000)
     }
 
     render() {
         return (
             <div className="animated fadeIn mt-3 ReferralModal">
                 <Formik
+                    enableReinitialize
                     initialValues={initialValues}
                     validate={validate(validationSchema)}
                     onSubmit={this.onSubmit}
@@ -135,14 +152,56 @@ class ReferralModal extends Component {
                                                         <Row>
                                                             <Col>
                                                                 <h6 className="font-weight-normal">
-                                                                    Soniclean will email your customer a link to where they can purchase a Soniclean Soft Carpet vacuum for 15% off the retail MAP price. If your customer completes their purchase, your account will be credited 1 Soniclean referral point. Earn 6 Soniclean referral points redeem them for a free Soniclean Soft Carpet vacuum cleaner.
+                                                                    Soniclean will email your customer a link to where they can purchase a Soniclean Soft Carpet vacuum for 15% off the retail MAP price ($53.99 off). If your customer completes their purchase, your account will be credited 1 Soniclean referral point.<br /><br />
+                                                                    1 Soniclean Referral = $50.00<br /><br />
+                                                                    We will disburse referral commissions to your company every month. Referral commissions will be paid via a check from Soniclean. 
+                                                                    Complete the form below to send a referral link to your customer.
+                                                                    
                                                                 </h6>
                                                             </Col>
                                                         </Row>
+                                                        <Row className="mt-3">
+                                                            <Col md={6}>
+                                                                    <FormGroup>
+                                                                        <Label for="firstName">Customer First Name</Label>
+                                                                        <div>
+                                                                            <Input type="firstName"
+                                                                                name="firstName"
+                                                                                id="firstName"
+                                                                                autoComplete="firstName"
+                                                                                valid={!errors.firstName}
+                                                                                invalid={touched.firstName && !!errors.firstName}
+                                                                                required
+                                                                                onChange={handleChange}
+                                                                                onBlur={handleBlur}
+                                                                                value={values.firstName} />
+                                                                            <FormFeedback>{errors.firstName}</FormFeedback>
+                                                                        </div>
+                                                                    </FormGroup>
+                                                            </Col>
+                                                            <Col md={6}>
+                                                                    <FormGroup>
+                                                                        <Label for="lastName">Customer Last Name</Label>
+                                                                        <div>
+                                                                            <Input type="lastName"
+                                                                                name="lastName"
+                                                                                id="lastName"
+                                                                                autoComplete="lastName"
+                                                                                valid={!errors.lastName}
+                                                                                invalid={touched.lastName && !!errors.lastName}
+                                                                                required
+                                                                                onChange={handleChange}
+                                                                                onBlur={handleBlur}
+                                                                                value={values.lastName} />
+                                                                            <FormFeedback>{errors.lastName}</FormFeedback>
+                                                                        </div>
+                                                                    </FormGroup>
+                                                            </Col>
+                                                        </Row>
                                                         <Row>
-                                                            <Col md={12} className="mt-3">
+                                                            <Col md={12} className="mt-2">
                                                                 <FormGroup>
-                                                                    <Label for="email">Enter Customer Email Address</Label>
+                                                                    <Label for="email">Customer Email</Label>
                                                                     <div>
                                                                         <Input type="email"
                                                                             name="email"
@@ -165,7 +224,9 @@ class ReferralModal extends Component {
                                                     <Col className="text-center">
                                                         <h4 className="text-muted font-wegith-bold">Please wait...</h4>
                                                         <h6 className="text-muted font-weight-bold">(Do not close or refresh this page)</h6>
-                                                        <div class="circle-loader mt-5">
+                                                        <h6 className="text-muted font-weight-bold mt-3">{this.state.firstName} {this.state.lastName}</h6>
+                                                        <h6 className="text-muted font-weight-bold">{this.state.email}</h6>
+                                                        <div class="circle-loader mt-3">
                                                             <div class="checkmark draw"></div>
                                                         </div>                                                    
                                                     </Col>
@@ -173,7 +234,9 @@ class ReferralModal extends Component {
                                                 <Row>
                                                     <Col className="text-center">
                                                         <h4 className="text-muted font-wegith-bold">Referral Link Sent Successfully!</h4>
-                                                        <div class="circle-loader load-complete mt-5">
+                                                        <h6 className="text-muted font-weight-bold mt-3">{this.state.firstName} {this.state.lastName}</h6>
+                                                        <h6 className="text-muted font-weight-bold">{this.state.email}</h6>
+                                                        <div class="circle-loader load-complete mt-3">
                                                             <div class="checkmark draw " style={{display: 'block'}}></div>
                                                         </div>    
                                                     </Col>
@@ -192,7 +255,7 @@ class ReferralModal extends Component {
                                                     <Button color="primary" type="submit" disabled={isSubmitting || !isValid}>{'Wait...'}</Button>
                                                 </> : this.state.submitSuccess && !isSubmitting ?
                                                 <>
-                                                    <Button color="danger" onClick={this.props.closeModal}>Done</Button>
+                                                                <Button color="danger" onClick={() => { this.props.closeModal(); handleReset()}}>Done</Button>
                                                 </> : null
                                         
                                             }

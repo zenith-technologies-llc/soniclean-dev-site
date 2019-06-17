@@ -24,7 +24,7 @@ const Stats = ({
           {step < totalSteps ?
               <Button color="primary" onClick={nextStep} disabled={activeNextStep}>Continue</Button>
               :
-              <Button color="primary" onClick={nextStep}>Finish</Button>
+              null
           }
     </div>
   )

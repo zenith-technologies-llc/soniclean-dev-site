@@ -1,4 +1,4 @@
-import { userConstants } from "../../_actionConstants";
+import { userConstants, salesformConstants } from "../../_actionConstants";
 import { userService } from '../../_services'
 import { history } from '../../_helpers/history'
 
@@ -50,5 +50,6 @@ function login(email, password) {
 function logout() {
     return dispatch => {
         dispatch({ type: userConstants.LOGOUT });
+        dispatch({ type: salesformConstants.LOGOUT })
     }
 }

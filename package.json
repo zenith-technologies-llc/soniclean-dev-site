@@ -37,6 +37,7 @@
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "formik": "^1.5.1",
+    "html-react-parser": "^0.7.1",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",

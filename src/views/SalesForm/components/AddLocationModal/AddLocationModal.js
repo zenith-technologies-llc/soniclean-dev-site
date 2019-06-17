@@ -31,8 +31,8 @@ const phoneNumberMask = [
 const validationSchema = function (values) {
     return Yup.object().shape({
         storeName: Yup.string()
-            .min(2, `Store name has to be at least 2 characters`)
-            .required('Store name is required'),
+            .min(2, `Store location name has to be at least 2 characters`)
+            .required('Store location name is required'),
         Address: Yup.string()
             .min(5, `Address has to be at least 5 characters`)
             .required('Address is required'),
@@ -53,7 +53,7 @@ const validationSchema = function (values) {
             .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, 'Password must contain: numbers, uppercase and lowercase letters\n')
             .required('Password is required'),
         phonenumber: Yup.string()
-            .required('Phone Number is required'),
+            .required('Store phone number is required'),
         us_state: Yup.string()
             .required('state is required'),
         accept: Yup.bool()
@@ -200,7 +200,7 @@ class AddLocationModal extends Component {
                                                     <Row>
                                                         <Col md={6}>
                                                             <FormGroup>
-                                                                <Label for="storeName">Store Loaction Name</Label>
+                                                                <Label for="storeName">Store Location Name</Label>
                                                                 <Input type="text"
                                                                     name="storeName"
                                                                     id="storeName"
@@ -216,7 +216,7 @@ class AddLocationModal extends Component {
                                                         </Col>
                                                         <Col md={6}>
                                                             <FormGroup>
-                                                                <Label>Sore Phone Number</Label>
+                                                                <Label>Store Phone Number</Label>
                                                                 <Field
                                                                     name="phonenumber"
                                                                     render={({ field }) => (
@@ -317,6 +317,7 @@ class AddLocationModal extends Component {
                                                                     valid={!errors.zipCode}
                                                                     invalid={touched.zipCode && !!errors.zipCode}
                                                                     required
+                                                                    maxLength={5}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     value={values.zipCode} />

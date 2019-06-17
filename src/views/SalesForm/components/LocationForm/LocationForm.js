@@ -94,11 +94,11 @@ class LocationForm extends Component {
                                     <Row>
                                         <Col>
                                             <Form onSubmit={handleSubmit} noValidate name='simpleForm'>
-                                                
                                                 <FormGroup className="mt-3">
                                                     <CustomInput
-                                                        type="checkbox"
-                                                        id="location0"
+                                                        type="radio"
+                                                        id="location1"
+                                                        name="location"
                                                         label="Carpet ABC, Inc. 1234 Test Road Boca Raton, FL 33308"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur} >
@@ -106,8 +106,9 @@ class LocationForm extends Component {
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <CustomInput
-                                                        type="checkbox"
-                                                        id="location1"
+                                                        type="radio"
+                                                        id="location2"
+                                                        name="location"
                                                         label="Carpet ABC, Inc. 4562 street Delray Beach, FL 33308"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur} >
@@ -115,8 +116,9 @@ class LocationForm extends Component {
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <CustomInput
-                                                        type="checkbox"
-                                                        id="location2"
+                                                        type="radio"
+                                                        id="location3"
+                                                        name="location"
                                                         label="Carpet ABC, Inc. 9998 West Federal Hwy Fort Lauderdale, FL 33432"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur} >

@@ -276,6 +276,7 @@ class AddPaymentMethodModal extends Component {
                                                                     valid={!errors.zipCode}
                                                                     invalid={touched.zipCode && !!errors.zipCode}
                                                                     required
+                                                                    maxLength={5}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     value={values.zipCode} />

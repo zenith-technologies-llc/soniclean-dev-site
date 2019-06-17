@@ -5,6 +5,7 @@ import OrderTypeItem from '../OrderTypeItem'
 import ReferralModal from '../ReferralModal'
 
 import { salesformActions } from '../../../../_actions'
+import * as Constants from '../../../../_config/constants'
 
 import {
     Button,
@@ -15,21 +16,6 @@ import {
     ModalBody,
     ModalFooter
 } from 'reactstrap';
-
-const data = [
-    {
-        title: 'BUY INVENTORY',
-        description: 'Order Soniclean products in bulk to keep stock in your showroom/warehouse'
-    },
-    {
-        title: 'DIRECT SHIP',
-        description: 'Order 1 vacuum at a time to be shipped to directly to your customer or store'
-    },
-    {
-        title: 'REFERRAL SALE',
-        description: 'Refer your customer and get credit towards purchases of Soniclean products'
-    }
-]
 
 class OrderType extends Component {
 
@@ -48,10 +34,19 @@ class OrderType extends Component {
 
     onSelected = (type, selected) => {
         this.setState({ selectedOrderType: type })
-        this.props.selectOrderType(type)
+        this.props.onSelectOrderType(type)
+        if(type===0) {
+            this.props.onSelectShippingInfor(1)
+        } else {
+            this.props.onSelectShippingInfor(-1)
+        }
     }
 
     toggleModal = () => {
+        if(this.state.modal) {
+            this.setState({ selectedOrderType: -1 })
+            this.props.onSelectOrderType(-1)
+        }
         this.setState({modal: !this.state.modal})
     }
 
@@ -70,7 +65,7 @@ class OrderType extends Component {
               </Row>
               <Row className="justify-content-center mt-5">
                   {
-                      data.map((item, index) => {
+                      Constants.orderType.map((item, index) => {
                           return (
                               <Col md="4" lg="3" className="mt-3" key={index}>
                                   <OrderTypeItem info={item} selectedIndex={orderType} type={index} onSelected={this.onSelected} />
@@ -81,7 +76,11 @@ class OrderType extends Component {
               </Row>
               <Row>
                   <Col>
-                      {orderType === 2 ? <Button color="primary mt-5" onClick={this.toggleModal} >Continue</Button> : <Stats step={1} {...this.props} activeNextStep={selectedIndex === null || selectedIndex === ''} /> }
+                      {
+                          orderType === 2 ? 
+                            <Button color="primary mt-5" onClick={this.toggleModal} >Continue</Button> : 
+                            <Stats step={1} {...this.props} activeNextStep={selectedIndex === null || selectedIndex === '' || orderType === -1} /> 
+                      }
                   </Col>
               </Row>
               
@@ -101,8 +100,11 @@ const mapStateToProps = ({ salesform }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectOrderType: (orderType) => {
+        onSelectOrderType: (orderType) => {
             dispatch(salesformActions.selectOrderType(orderType));
+        },
+        onSelectShippingInfor: (type) => {
+            dispatch(salesformActions.selectShippingInfor(type))
         }
     }
 }

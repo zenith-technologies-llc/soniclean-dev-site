@@ -23,4 +23,8 @@
         font-weight: bold;
         font-size: 12px;
     }
+    .switch-input:disabled ~ .switch-slider {
+        opacity: 1;
+        cursor: pointer;
+    }
 }

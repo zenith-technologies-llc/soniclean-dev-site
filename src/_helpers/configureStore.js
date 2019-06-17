@@ -29,7 +29,7 @@ export default function configureStore(preloadedState) {
     version: 0,
     storage,
     migrate: createMigrate(migrations, { debug: false }),
-    blacklist: ["form", ]
+    blacklist: ["form"]
   }
 
   const persistedReducer = persistReducer(persistConfig, rootReducer)

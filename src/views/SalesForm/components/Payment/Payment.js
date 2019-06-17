@@ -1,28 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import {
-    Badge,
     Button,
-    ButtonDropdown,
-    ButtonGroup,
-    ButtonToolbar,
     Card,
     CardBody,
-    CardFooter,
     CardHeader,
-    CardTitle,
     Col,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Progress,
     Row,
-    Table,
     Modal,
     ModalHeader,
     ModalFooter,
     ModalBody,
-
 } from 'reactstrap';
 
 import Stats from '../Stats'
@@ -35,6 +24,7 @@ import PaymentShipping from '../PaymentShipping';
 import EmailNotification from '../EmailNotification'
 import ProductBox from '../ProductBox'
 import ProductInfo from '../ProductInfo'
+import PromoCode from '../PromoCode'
 import ScrollTop from '../ScrollTop'
 
 import './Payment.scss'
@@ -42,13 +32,13 @@ import './Payment.scss'
 const PaymentData = [
     {
         image: visa,
-        info: 'ending in 4587 EXP: 09 / 21',
-        name: 'John Doe'
+        info: 'ending in •••• 2723',
+        name: 'Exp: 09 / 19'
     },
     {
         image: ae,
-        info: 'ending in 9778 EXP: 08 / 20',
-        name: 'Jim smith'
+        info: 'ending in •••• 2723',
+        name: 'Exp: 09 / 19'
     }
 ]
 
@@ -56,7 +46,8 @@ class Payment extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            modal: false
+            modal: false,
+            selectedPayment: null
         }
     }
 
@@ -64,9 +55,18 @@ class Payment extends Component {
         this.setState({ modal: !this.state.modal })
     }
 
+    onSelectPayment= (index) => {
+        this.setState({selectedPayment: index})
+    }
+
+    prevStep = () => {
+        this.props.previousStep()
+    }
+
   render() {
 
-    const { modal } = this.state
+    const { modal, selectedPayment } = this.state
+
     return (
         <div className="text-center mx-auto Payment">
             <ScrollTop />
@@ -86,34 +86,36 @@ class Payment extends Component {
                     <Row>
                         <Col xs="12" md="7" className="text-left">
                             <div className="d-flex justify-content-between align-items-center mb-3">
-                                <h2 className="font-weight-bold text-primary"> Payment Method </h2>
+                                <h3 className="font-weight-normal text-black"> Payment Method </h3>
                                 <Button color="primary" onClick={this.toggleModal}><i className="fa fa-plus-circle fa-md mr-3"></i>Add Payment</Button>
                             </div>
                             {
                                 PaymentData.map((item, index) => {
-                                    return <PaymentMethod data={item} key={index} />
+                                    return <PaymentMethod 
+                                            data={item} 
+                                            key={index} 
+                                            index={index} 
+                                            selectPayment={this.onSelectPayment} 
+                                            selectedIndex={selectedPayment}
+                                            />
                                 })
                             }
                             <hr />
-                            <div className="d-flex justify-content-between align-items-center mb-3">
-                                <h2 className="font-weight-bold text-primary"> Shipping Information </h2>
-                            </div>
-                            <PaymentShipping />
+                            <PaymentShipping type={this.props.shippinginfor} SW={this.prevStep} />
                             <hr />
-                            <div className="d-flex justify-content-between align-items-center mb-3">
-                                <h2 className="font-weight-bold text-primary"> Email Notification </h2>
-                            </div>
                             <EmailNotification />
                         </Col>
                         <Col xs="12" md="5">
                             <Card className="card-accent-primary mt-mobile-5 ">
-                            <CardHeader>Order Summary</CardHeader>
+                                <CardHeader><h4 className="font-weight-normal text-black">Order Summary</h4></CardHeader>
                             <CardBody>
-                                    <ProductBox />
-                                    <hr />
-                                    <ProductBox />
-                                    <hr />
-                                    <ProductInfo />
+                                <ProductBox />
+                                <hr />
+                                <ProductBox />
+                                <hr />
+                                <PromoCode />
+                                <hr />
+                                <ProductInfo />
                             </CardBody>
                             </Card>
                         </Col>
@@ -126,4 +128,21 @@ class Payment extends Component {
   }
 }
 
-export default Payment
+
+const mapStateToProps = ({ salesform }) => {
+    const { orderType, shippinginfor } = salesform;
+    return { orderType, shippinginfor };
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         onSelectShippingInfor: (orderType) => {
+//             dispatch(salesformActions.selectShippingInfor(orderType));
+//         }
+//     }
+// }
+
+export default connect(
+    mapStateToProps,
+    null
+)(Payment);

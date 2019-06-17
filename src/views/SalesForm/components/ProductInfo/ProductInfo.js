@@ -18,7 +18,8 @@ class ProductInfo extends Component {
             <h6 className="font-weight-bold text-muted">Tax</h6>
             <h6 className="text-primary">$00.00</h6>
         </div>
-        <div className="d-flex justify-content-between align-items-center mt-5">
+        <hr />
+        <div className="d-flex justify-content-between align-items-center mt-3">
             <h6 className="font-weight-bold text-muted">Total</h6>
             <h6 className="text-primary">$450.00</h6>
         </div>
