@@ -310,14 +310,14 @@ class AddLocationModal extends Component {
                                                         <Col md={4}>
                                                             <FormGroup>
                                                                 <Label for="email">Zip Code</Label>
-                                                                <Input type="zipCode"
+                                                                <Input type="number"
                                                                     name="zipCode"
                                                                     id="zipCode"
                                                                     autoComplete="zipCode"
                                                                     valid={!errors.zipCode}
                                                                     invalid={touched.zipCode && !!errors.zipCode}
                                                                     required
-                                                                    maxLength={5}
+                                                                    maxLength="200"
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     value={values.zipCode} />
