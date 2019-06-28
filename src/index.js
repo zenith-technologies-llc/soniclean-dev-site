@@ -15,6 +15,9 @@ import "./index.css";
 
 import * as serviceWorker from './serviceWorker';
 
+
+//console.log(process.env.REACT_APP_API_URL,'base url = ');
+
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
