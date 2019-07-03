@@ -3,7 +3,7 @@ import 'react-app-polyfill/ie11'; // For IE 11 support
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./_helpers/configureStore";
@@ -15,8 +15,6 @@ import "./index.css";
 
 import * as serviceWorker from './serviceWorker';
 
-
-//console.log(process.env.REACT_APP_API_URL,'base url = ');
 
 ReactDOM.render(
     <Provider store={store}>

@@ -30,7 +30,7 @@ function login(email, password) {
         //         dispatch(failure(user.error));    
         //         console.log("a")
         //     }
-            
+
         // }, error=>{
         //     dispatch(failure(error.toString()));
         // })
@@ -38,12 +38,13 @@ function login(email, password) {
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) {
         return {
-          type: userConstants.LOGIN_SUCCESS,
-          payload: {
-            accessToken: user.token,
-            userEmail: email
-          }
-        }; }
+            type: userConstants.LOGIN_SUCCESS,
+            payload: {
+                accessToken: user.token,
+                userEmail: email
+            }
+        };
+    }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
