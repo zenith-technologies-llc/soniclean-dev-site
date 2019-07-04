@@ -136,11 +136,12 @@ class Register extends Component {
       firstName: '',
       lastname: '',
       us_state: '',
-      mohawkBrands: '',
+      mohawkBrands: [],
       us_state_error: false,
       mohawk_error: false
     }
     this.form = React.createRef();
+    this.saveMohawkChanges = this.saveMohawkChanges.bind(this);
   }
 
   componentDidMount = () => {
@@ -221,9 +222,17 @@ class Register extends Component {
     }
 
   }
-
+/*
   saveMohawkChanges = (value) => {
     this.setState({ mohawkBrands: value, mohawk_error: false });
+  }
+*/
+  saveMohawkChanges = (value) => {
+    this.setState(state => {
+      return {
+        mohawkBrands: value
+      };
+    });
   }
 
   handleMohawkBlur = () => {
@@ -454,6 +463,7 @@ class Register extends Component {
                                 </Row>
 
                                 <FormGroup>
+                                
                                   <Label for="Address">Address 1</Label>
                                   <Input type="text"
                                     name="Address"
