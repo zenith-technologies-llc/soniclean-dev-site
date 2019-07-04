@@ -437,13 +437,13 @@ class Register extends Component {
                                             name="mohawkBrands"
                                             id="mohawkBrands"
                                             value={this.state.mohawkBrands}
-                                            options={brandData}
-                                            isMulti={true}
+                                            options={brandData}                                            
                                             valid={!errors.mohawkBrands}
                                             invalid={touched.mohawkBrands && !!errors.mohawkBrands}
                                             onChange={this.saveMohawkChanges}
                                             onBlur={() => this.handleMohawkBlur()}
                                             className={classNames(this.state.mohawk_error ? 'error-select' : '')}
+                                            multi
                                           />
                                         )}
                                       />
@@ -463,7 +463,7 @@ class Register extends Component {
                                 </Row>
 
                                 <FormGroup>
-                                
+
                                   <Label for="Address">Address 1</Label>
                                   <Input type="text"
                                     name="Address"
