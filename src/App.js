@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
 
 import { Redirect } from "react-router";
-import { connect } from "react-redux";
-import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 
 import AppRoutes from './Routes/AppRoutes'
@@ -17,7 +15,8 @@ class App extends Component {
     return (
       <>
         <Switch>
-          {AppRoutes.map((prop, key) => {
+          {
+            AppRoutes.map((prop, key) => {
             if (prop.redirect)
               return (
                 <Redirect from={prop.path} to={prop.to} key={key} />
@@ -30,21 +29,14 @@ class App extends Component {
                 private={prop.private}
                 name={prop.name}
               />
-            );
-          })}
+              );
+            })
+          }
         </Switch>
       </>
     );
   }
 }
 
-export default compose(
-  withRouter,
-  connect(
-    ({ auth }) => ({
-      loggedIn: auth.loggedIn,
-    }),
-    null
-  )
-)(App);
+export default withRouter(App);
 

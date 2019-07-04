@@ -21,11 +21,14 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.min.css';
 import * as Yup from 'yup'
 import states from '../../../_config/states';
+import { MohawkOption } from '../../../_config/constants';
+import RegisterSubmitModal from './RegisterSubmitModal'
 
 import './Register.scss'
 import logo from './images/logo.png'
 
 const options = states.US;
+
 const phoneNumberMask = [
   "(",
   /[1-9]/,
@@ -42,7 +45,6 @@ const phoneNumberMask = [
   /\d/,
   /\d/
 ];
-
 
 const validationSchema = function (values) {
   return Yup.object().shape({
@@ -63,7 +65,7 @@ const validationSchema = function (values) {
       .min(2, `Website URL has to be at least 2 characters`)
       .required('Website URL is required'),
     mohawkAccount: Yup.string()
-      .min(2, `Mohawk Account has to be at least 2 characters`)
+      .test('len', 'Must be exactly 6 characters', val => val.length === 6)
       .required('Mohawk Account is required'),
     Address: Yup.string()
       .min(5, `Address has to be at least 5 characters`)
@@ -131,7 +133,8 @@ class Register extends Component {
       us_state: '',
       mohawkBrands: '',
       us_state_error: false,
-      mohawk_error: false
+      mohawk_error: false,
+      modal: false
     }
     this.form = React.createRef();
   }
@@ -167,7 +170,8 @@ class Register extends Component {
     this.setState({
       firstName: values.firstName,
       lastName: values.lastName,
-      email: values.email
+      email: values.email,
+      modal: true
     })
     setTimeout(() => {
       this.setState({ submitSuccess: true })
@@ -189,7 +193,6 @@ class Register extends Component {
         this.setState({ us_state_error: true })
       }
     }
-
   }
 
   saveMohawkChanges = (value) => {
@@ -206,16 +209,20 @@ class Register extends Component {
         this.setState({ mohawk_error: true })
       }
     }
+  }
 
+  toggleModal = () => {
+    this.setState({modal: false})
   }
 
   render() {
     return (
-      <div className="app flex-row align-items-center Register">
+      <div className="app Register">
+        <RegisterSubmitModal modal={this.state.modal} toggleModal={this.toggleModal} submitSuccess={this.state.submitSuccess} />
         <Container>
-          <Row className="justify-content-center">
-            <Col md="10" lg="7" xl="12">
-              <Card className="mt-5">
+          <Row>
+            <Col md="12" lg="7" xl="12">
+              <Card className="mt-5 mb-5">
                 <CardBody className="p-4">
                   <div className="text-center"><img src={logo} alt="logo" /></div>
                   <h6 className="mt-3 text-center text-muted font-weight-normal">
@@ -396,7 +403,7 @@ class Register extends Component {
                                                       name="mohawkBrands"
                                                       id="mohawkBrands"
                                                       value={this.state.mohawkBrands}
-                                                      options={options}
+                                                      options={MohawkOption}
                                                       valid={!errors.mohawkBrands}
                                                       invalid={touched.mohawkBrands && !!errors.mohawkBrands}
                                                       onChange={this.saveMohawkChanges}

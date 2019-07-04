@@ -43,12 +43,14 @@ class PaymentMethod extends Component {
           <Card className="border-info" onClick={this.onSelect}>
           <CardBody className={classNames('PaymentMethod__card align-items-center text-black ', selectedIndex === index ? 'PaymentMethod__selected': '')}>
                 <Row className="align-items-center">
-                  <Col sm="12" md="auto"><img src={image} alt="visa" /></Col>
-                  <Col sm="12" md="auto">
+                  <Col sm={12} md={3} ><img src={image} alt="visa" /></Col>
+                  <Col sm={12} md={3} >
                     <h6 className="font-weight-normal"> {info}</h6>
                     <h6 className="font-weight-normal mt-2"> {name}</h6>
                   </Col>
-              <Col sm="12" md="6" className="text-right"><AppSwitch className={'mx-1 mt-2 align-middle'} color={'success'} checked={selectedIndex===index } disabled label dataOn={'selected'} dataOff={'select'} /></Col>
+              <Col sm={12} md={6} className="text-md-center text-sm-left" >
+                <AppSwitch className={'mx-1 mt-2'} color={'success'} checked={selectedIndex===index } disabled label dataOn={'selected'} dataOff={'select'} />
+                  </Col>
                 </Row>
               </CardBody>
             </Card>

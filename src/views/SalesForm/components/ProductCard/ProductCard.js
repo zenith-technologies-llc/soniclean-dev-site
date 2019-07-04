@@ -110,10 +110,10 @@ class ProductCard extends Component {
         const { selected, modal } = this.state
 
         return (
-            <div className="ProductCard w-100 h-100 " >
-                <Row className="h-100">
+            <div className="ProductCard w-100" >
+                <Row>
                     <Col >
-                        <Card className={classNames('w-100 h-100', selected ? "card-accent-primary":"")}>
+                        <Card className={classNames('w-100', selected ? "card-accent-primary":"")}>
                             <CardHeader className="text-left" >
                                 <span className="h5">${data.price}/{data.unit}</span>
                                 <div className="card-header-actions">
@@ -148,11 +148,11 @@ class ProductCard extends Component {
                                     <>
                                             <InputGroup>
                                                 <InputGroupAddon addonType="prepend">
-                                                    <Button type="button" color="primary" onClick={() => this.onMinus(productIndex)}><i class="fa fa-minus fa-sm"></i></Button>
+                                                    <Button type="button" color="primary" onClick={() => this.onMinus(productIndex)}><i className="fa fa-minus fa-sm"></i></Button>
                                                 </InputGroupAddon>
                                                 <Input type="text" editable="false" className="text-center font-weight-bold" value={this.state.quantity} id="input3-group2" name="input3-group2" placeholder="0" />
                                                 <InputGroupAddon addonType="append">
-                                                    <Button type="button" color="primary" onClick={() => this.onPlus(productIndex)}><i class="fa fa-plus fa-sm"></i></Button>
+                                                    <Button type="button" color="primary" onClick={() => this.onPlus(productIndex)}><i className="fa fa-plus fa-sm"></i></Button>
                                                 </InputGroupAddon>
                                             </InputGroup>
                                     </>

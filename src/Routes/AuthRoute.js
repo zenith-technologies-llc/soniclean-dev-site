@@ -2,7 +2,9 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { Redirect } from 'react-router';
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
+import { getToken } from '_helpers/token-helpers'
 
 const AuthRoute = ({ component: Component, ...routeProps }) => (
     <Route {...routeProps} render={(componentProps) => {
@@ -22,9 +24,8 @@ const AuthRoute = ({ component: Component, ...routeProps }) => (
     }} />
 )
 
-const mapStateToProps = ({ auth }) => {
-    const { loggedIn } = auth;
-    return { loggedIn};
-};
+const mapStateToProps = store => ({
+    loggedIn: store.auth.loggedIn
+});
 
-export default connect(mapStateToProps)(AuthRoute);
+export default connect(mapStateToProps)(AuthRoute)

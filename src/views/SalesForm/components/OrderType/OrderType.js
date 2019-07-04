@@ -4,17 +4,15 @@ import Stats from '../Stats'
 import OrderTypeItem from '../OrderTypeItem'
 import ReferralModal from '../ReferralModal'
 
-import { salesformActions } from '../../../../_actions'
-import * as Constants from '../../../../_config/constants'
+import { selectOrderType, selectShippingInfor } from 'modules/salesform'
+import * as Constants from '_config/constants'
+
+import './OrderType.scss'
 
 import {
     Button,
     Col,
     Row,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter
 } from 'reactstrap';
 
 class OrderType extends Component {
@@ -56,7 +54,7 @@ class OrderType extends Component {
       const { orderType, selectedIndex } = this.props
 
       return (
-          <div className="text-center" >
+          <div className="text-center OrderType" >
               <ReferralModal toogle={modal} closeModal={this.toggleModal} />
               <Row className="mt-4">
                   <Col>
@@ -101,10 +99,10 @@ const mapStateToProps = ({ salesform }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSelectOrderType: (orderType) => {
-            dispatch(salesformActions.selectOrderType(orderType));
+            dispatch(selectOrderType(orderType));
         },
         onSelectShippingInfor: (type) => {
-            dispatch(salesformActions.selectShippingInfor(type))
+            dispatch(selectShippingInfor(type))
         }
     }
 }

@@ -64,11 +64,13 @@
     "react-toastify": "^4.5.2",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
+    "redux-actions": "^2.6.5",
     "redux-cache": "^0.3.0",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1",
     "spinkit": "1.2.5",
+    "universal-cookie": "^4.0.0",
     "yup": "^0.26.10"
   },
   "devDependencies": {
