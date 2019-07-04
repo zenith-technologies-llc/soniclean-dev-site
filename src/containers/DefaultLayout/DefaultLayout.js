@@ -3,11 +3,10 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { userActions } from "../../_actions";
+import { fetchLogout } from "modules/auth";
 import { Link } from 'react-router-dom';
 import {
   AppAside,
-  AppBreadcrumb,
   AppFooter,
   AppHeader,
   AppSidebar,
@@ -32,7 +31,6 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault()
     this.props.userLogout()
-
   }
 
   render() {
@@ -63,8 +61,7 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            
-            <Container fluid className="mt-4">
+            <Container fluid className="mt-4 mb-4">
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {
@@ -103,7 +100,7 @@ class DefaultLayout extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     userLogout: () => {
-      dispatch(userActions.logout());
+      dispatch(fetchLogout());
     }
   };
 };

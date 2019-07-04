@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 import Stats from '../Stats'
 import ProductCard from '../ProductCard'
 import * as Contants from '../../../../_config/constants'
-import { salesformActions } from '../../../../_actions'
+import { selectInventory, selectShip } from 'modules/salesform'
 
 import './SelectProduct.scss'
 
@@ -131,10 +131,10 @@ const mapStateToProps = ({ salesform }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSelectInventory: (data) => {
-            dispatch(salesformActions.selectInventory(data));
+            dispatch(selectInventory(data));
         },
         onSelectShip: (data) => {
-            dispatch(salesformActions.selectShip(data))
+            dispatch(selectShip(data))
         }
     }
 }

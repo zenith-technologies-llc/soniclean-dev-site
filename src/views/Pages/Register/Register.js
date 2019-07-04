@@ -25,6 +25,8 @@ import * as Yup from 'yup'
 import './Register.scss'
 import logo from './images/logo.png'
 
+import RegisterSubmitModal from './RegisterSubmitModal'
+
 import { stateActions, brandActions } from "../../../_actions";
 import axios from 'axios';
 
@@ -45,7 +47,6 @@ const phoneNumberMask = [
   /\d/
 ];
 
-
 const validationSchema = function (values) {
   return Yup.object().shape({
     email: Yup.string()
@@ -65,7 +66,7 @@ const validationSchema = function (values) {
       .min(2, `Website URL has to be at least 2 characters`)
       .required('Website URL is required'),
     mohawkAccount: Yup.string()
-      .min(6, `Mohawk Account has to be at least 2 characters`)
+      .test('len', 'Must be exactly 6 characters', val => val.length === 6)
       .required('Mohawk Account is required'),
     Address: Yup.string()
       .min(5, `Address has to be at least 5 characters`)
@@ -138,7 +139,8 @@ class Register extends Component {
       us_state: '',
       mohawkBrands: [],
       us_state_error: false,
-      mohawk_error: false
+      mohawk_error: false,
+      modal: false
     }
     this.form = React.createRef();
     this.saveMohawkChanges = this.saveMohawkChanges.bind(this);
@@ -205,7 +207,7 @@ class Register extends Component {
       setSubmitting(false)
     }, 5000)*/
   }
-
+//, modal: true
   saveChanges = (value) => {
     this.setState({ us_state: value, us_state_error: false });
   }
@@ -220,7 +222,6 @@ class Register extends Component {
         this.setState({ us_state_error: true })
       }
     }
-
   }
 /*
   saveMohawkChanges = (value) => {
@@ -245,18 +246,22 @@ class Register extends Component {
         this.setState({ mohawk_error: true })
       }
     }
+  }
 
+  toggleModal = () => {
+    this.setState({modal: false})
   }
 
   render() {
     const { stateData, brandData } = this.props;
 
     return (
-      <div className="app flex-row align-items-center Register">
+      <div className="app Register">
+        <RegisterSubmitModal modal={this.state.modal} toggleModal={this.toggleModal} submitSuccess={this.state.submitSuccess} />
         <Container>
-          <Row className="justify-content-center">
-            <Col md="10" lg="7" xl="12">
-              <Card className="mt-5">
+          <Row>
+            <Col md="12" lg="7" xl="12">
+              <Card className="mt-5 mb-5">
                 <CardBody className="p-4">
                   <div className="text-center"><img src={logo} alt="logo" /></div>
                   <h6 className="mt-3 text-center text-muted font-weight-normal">

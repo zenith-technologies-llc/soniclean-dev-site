@@ -86,11 +86,9 @@ const getErrorsFromValidationError = (validationError) => {
 
 const initialValues = {
     firstName: "",
-    lastName: "",
+    Address: "",
     Address: "",
     Address2: "",
-    email: "",
-    password: "",
     city: "",
     zipCode: "",
     phonenumber: "",
@@ -114,7 +112,8 @@ class AddLocationModal extends Component {
 
         this.state = {
             us_state: [],
-            us_state_error: false
+            us_state_error: false,
+            initialValues: {}
         }
 
     }
@@ -137,7 +136,7 @@ class AddLocationModal extends Component {
 
     touchAll(setTouched, errors) {
         setTouched({
-            firstName: false,
+            storeName: false,
             lastName: false,
             Address: true,
             Address2: true,
