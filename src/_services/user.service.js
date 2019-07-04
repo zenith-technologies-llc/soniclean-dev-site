@@ -1,12 +1,12 @@
 
-import ConfigParams from '../_config'
+import {loginSuccess} from 'modules/auth'
 
 export const userService = {
     login,
     logout
 };
 
-function login(username, password) {
+function login(email, password) {
 
     // const requestOptions = {
     //     method: 'POST',
@@ -22,8 +22,11 @@ function login(username, password) {
     //     return user
     //   });
 
-    return 'userToken'
+    const userToken = 'userToken'
 
+    loginSuccess(userToken)
+
+    return 'userToken'
 }
 
 function logout() {

@@ -28,7 +28,9 @@ import LaddaButton, {
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { userActions } from "../../../_actions";
+// import { userActions } from "../../../_actions";
+import { fetchLogin } from 'modules/auth'
+
 import "ladda/dist/ladda-themeless.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -234,7 +236,7 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLogin: (email, password) => {
-      dispatch(userActions.login(email, password));
+      dispatch(fetchLogin(email, password));
     }
   }
 }

@@ -39,7 +39,7 @@ class SalesForm extends Component {
                 <Row>
                     <Col>
                         <Card>
-                            <CardHeader className="d-flex align-items-center justify-content-between">
+                            <CardHeader>
                                 <Nav activeStep={this.state.activeStep} />
                             </CardHeader>
                             <CardBody>
@@ -47,6 +47,7 @@ class SalesForm extends Component {
                                     instance={this.setInstance}
                                     onStepChange={this.onStepChange}
                                     isHashEnabled
+                                    isLazyMount={true}
                                 >
                                     <OrderType hashKey={'ordertype'} {...this.props} />
                                     <SelectProduct hashKey={'selectproduct'} />
@@ -54,9 +55,6 @@ class SalesForm extends Component {
                                     <Payment hashKey={'payment'} />
                                 </StepWizard>
                             </CardBody>
-                            {/* <CardFooter>
-                                Question? Give us a call at (954) 228-9100
-                            </CardFooter> */}
                         </Card>
                     </Col>
                 </Row>

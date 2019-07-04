@@ -10,8 +10,8 @@ import InformationForm from '../InformationForm'
 import LocationForm from '../LocationForm'
 import Stats from '../Stats'
 
-import { salesformActions } from '../../../../_actions'
-import * as Constants from '../../../../_config/constants'
+import { selectShippingInfor } from 'modules/salesform'
+import * as Constants from '_config/constants'
 
 import './ShippingInformation.scss'
 
@@ -93,7 +93,7 @@ const mapStateToProps = ({ salesform }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSelectShippingInfor: (orderType) => {
-            dispatch(salesformActions.selectShippingInfor(orderType));
+            dispatch(selectShippingInfor(orderType));
         }
     }
 }

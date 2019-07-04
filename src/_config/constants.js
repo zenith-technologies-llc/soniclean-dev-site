@@ -95,3 +95,9 @@ export {
     products,
     shippinginforType
 }
+
+export const MohawkOption = [
+    { value: "1", label: "Mohawk" },
+    { value: "2", label: "Karastan" },
+    { value: "3", label: "Mohawk & Karastan" }
+]
