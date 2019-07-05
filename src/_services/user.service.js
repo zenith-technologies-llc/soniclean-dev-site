@@ -1,5 +1,5 @@
 
-import {loginSuccess} from 'modules/auth'
+import {loginSuccess} from 'modules/Auth'
 
 export const userService = {
     login,

@@ -5,6 +5,7 @@ export const brandActions = {
 };
 
 function fetchBrands() {
+ 
     return dispatch => {
         const appBaseURL = process.env.REACT_APP_API_URL
         fetch(appBaseURL + "brands", {

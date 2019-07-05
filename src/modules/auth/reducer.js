@@ -56,7 +56,7 @@ export const logout = createAction(LOGOUT)
 
 /* Reducer */
 
-export const authReducer = handleActions({
+export const AuthReducer = handleActions({
 
     [LOGIN]: (state) => {
         return {

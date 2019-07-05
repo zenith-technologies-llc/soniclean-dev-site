@@ -29,7 +29,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 // import { userActions } from "../../../_actions";
-import { fetchLogin } from 'modules/auth'
+import { fetchLogin } from 'modules/Auth'
 
 import "ladda/dist/ladda-themeless.min.css";
 import "react-toastify/dist/ReactToastify.css";

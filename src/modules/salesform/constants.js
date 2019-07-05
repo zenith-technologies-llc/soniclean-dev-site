@@ -1,4 +1,4 @@
-const namespace = 'soniclean/salesform'
+const namespace = 'soniclean/salesForm'
 
 export const SALESFORM_ORDERTYPE = `${namespace}/SALESFORM_ORDERTYPE`
 export const SELECT_INVENTORY = `${namespace}/SELECT_INVENTORY`

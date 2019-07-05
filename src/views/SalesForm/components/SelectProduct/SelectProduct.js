@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 import Stats from '../Stats'
 import ProductCard from '../ProductCard'
 import * as Contants from '../../../../_config/constants'
-import { selectInventory, selectShip } from 'modules/salesform'
+import { selectInventory, selectShip } from 'modules/salesForm'
 
 import './SelectProduct.scss'
 

@@ -19,3 +19,5 @@ export function StateReducer(state = INITIAL_STATE, action) {
             return state;
     }
 }
+
+//it should include const to map to props

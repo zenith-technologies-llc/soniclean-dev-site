@@ -110,14 +110,13 @@ const initialValues = {
   lastName: '',
   phonenumber: '',
   website: '',
-  companyname: '',
+  companyName: '',
   mohawkAccount: '',
   Address: '',
   city: '',
   zipCode: '',
-  us_state: '',
-  mohawkBrands: '',
-  us_state: ''
+  us_state: 0,
+  mohawkBrands: ''
 }
 
 
@@ -136,8 +135,9 @@ class Register extends Component {
       email: '',
       firstName: '',
       lastname: '',
-      us_state: '',
-      mohawkBrands: [],
+      us_state: 0,
+      companyName: '',
+      mohawkBrands: '',
       us_state_error: false,
       mohawk_error: false,
       modal: false
@@ -181,10 +181,15 @@ class Register extends Component {
     });
 */
     const appBaseURL = process.env.REACT_APP_API_URL;
+
+    var brands_ = this.state.mohawkBrands.map(function(item) {
+      return  item.value;
+    }).join(',');
+
      axios.post(appBaseURL + 'dealers', { 
             ownerfirstname: values.firstName,
             ownerlastname: values.lastName,
-            companyname: values.companyname,
+            companyname: values.companyName,
             mohawkaccountid: values.mohawkAccount,
             email: values.email,
             website: values.website,
@@ -192,9 +197,9 @@ class Register extends Component {
             storeaddress: values.Address,
             storeaddress2: values.Address2,
             storecity: values.city,
-            storestate: values.us_state,
+            storestate: this.state.us_state.value,
             storezip: values.zipcode,
-            brands: values.mohawkBrands
+            brands: brands_
        })
           .then((result) => {
             this.setState({ submitSuccess: true });
@@ -223,19 +228,21 @@ class Register extends Component {
       }
     }
   }
+
+  saveMohawkChanges = (value) => {
+    this.setState({ mohawkBrands : value, mohawk_error: false });
+  }
+
 /*
   saveMohawkChanges = (value) => {
-    this.setState({ mohawkBrands: value, mohawk_error: false });
-  }
-*/
-  saveMohawkChanges = (value) => {
+
     this.setState(state => {
       return {
         mohawkBrands: value
       };
     });
   }
-
+*/
   handleMohawkBlur = () => {
     if (this.state.mohawkBrands === null) {
       this.setState({ mohawk_error: true })

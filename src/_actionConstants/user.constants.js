@@ -9,4 +9,5 @@ export const userConstants = {
          FETCH_STATES_REQUEST:"FETCH_STATES_REQUEST",
          FETCH_STATES_RECEIVED:"FETCH_STATES_RECEIVED",
          FETCH_BRANDS_RECEIVED:"FETCH_BRANDS_RECEIVED",
-       };
+       }; 
+
