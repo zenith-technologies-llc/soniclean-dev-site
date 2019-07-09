@@ -29,7 +29,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 // import { userActions } from "../../../_actions";
-import { fetchLogin } from 'modules/auth'
+import { fetchLogin } from 'modules/Auth'
 
 import "ladda/dist/ladda-themeless.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -229,6 +229,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  console.log("mapStateToProps")
   const { loggingIn, errorLogin } = auth;
   return { loggingIn, errorLogin };
 }

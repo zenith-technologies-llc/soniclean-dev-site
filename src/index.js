@@ -3,7 +3,7 @@ import 'react-app-polyfill/ie11'; // For IE 11 support
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./_helpers/store";
 
@@ -13,6 +13,7 @@ import App from './App';
 import "./index.css";
 
 import * as serviceWorker from './serviceWorker';
+
 
 ReactDOM.render(
     <Provider store={store}>

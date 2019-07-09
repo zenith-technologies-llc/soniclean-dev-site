@@ -10,7 +10,7 @@ import InformationForm from '../InformationForm'
 import LocationForm from '../LocationForm'
 import Stats from '../Stats'
 
-import { selectShippingInfor } from 'modules/salesform'
+import { selectShippingInfor } from 'modules/salesForm'
 import * as Constants from '_config/constants'
 
 import './ShippingInformation.scss'

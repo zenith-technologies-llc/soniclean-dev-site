@@ -22,7 +22,7 @@ export const selectInventory = createAction(SELECT_INVENTORY)
 export const selectShip = createAction(SELECT_SHIP)
 export const selectShippingInfor = createAction(SELECT_SHIPPINGINFO)
 
-export const salesFormReducer = handleActions({
+export const SalesFormReducer = handleActions({
 
     [SALESFORM_ORDERTYPE]: (state, {payload}) => {
         return {

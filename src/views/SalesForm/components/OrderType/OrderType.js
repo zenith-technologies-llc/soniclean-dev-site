@@ -4,7 +4,7 @@ import Stats from '../Stats'
 import OrderTypeItem from '../OrderTypeItem'
 import ReferralModal from '../ReferralModal'
 
-import { selectOrderType, selectShippingInfor } from 'modules/salesform'
+import { selectOrderType, selectShippingInfor } from 'modules/salesForm'
 import * as Constants from '_config/constants'
 
 import './OrderType.scss'
