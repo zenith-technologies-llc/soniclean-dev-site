@@ -1,10 +1,11 @@
-import { userConstants } from "../../_actionConstants";
+import { handleActions } from 'redux-actions'
+import {BRANDS } from './constants'
 
-export const brandActions = {
-    fetchBrands
+const initialState = {
+    brandData: []
 };
 
-function fetchBrands() {
+export const  fetchBrands =() => {
     return dispatch => {
         const appBaseURL = process.env.REACT_APP_API_URL
         fetch(appBaseURL + "brands", {
@@ -13,13 +14,21 @@ function fetchBrands() {
               ["Content-Type", "application/json"],
             ]})
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
+            .then(data => {             
                 var new_data = data.data.map(brand => { return { value: brand.id, label: brand.brandname } })
                 dispatch({
-                    type: userConstants.FETCH_BRANDS_RECEIVED,
+                    type: BRANDS,
                     payload: new_data
                 });
             });
     }
 }
+
+export const BrandReducer = handleActions({
+    [BRANDS]: (state, {payload}) => {      
+        return {
+            ...state,
+            brandData: payload,
+        };
+    },
+}, initialState)

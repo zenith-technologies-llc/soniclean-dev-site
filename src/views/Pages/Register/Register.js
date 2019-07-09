@@ -24,10 +24,11 @@ import 'react-select/dist/react-select.min.css';
 import * as Yup from 'yup'
 import './Register.scss'
 import logo from './images/logo.png'
-
 import RegisterSubmitModal from './RegisterSubmitModal'
+import { fetchStates } from "../../../modules/States";
+import { fetchBrands } from "../../../modules/Brands";
 
-import { stateActions, brandActions } from "../../../_actions";
+
 import axios from 'axios';
 
 const phoneNumberMask = [
@@ -115,8 +116,8 @@ const initialValues = {
   Address: '',
   city: '',
   zipCode: '',
-  us_state: 0,
-  mohawkBrands: ''
+  us_state: '',
+  mohawkBrands: '',
 }
 
 
@@ -126,8 +127,8 @@ class Register extends Component {
 
   constructor(props) {
     super(props)
-    this.props.fetchStateData();
-    this.props.fetchBrandsData();
+     this.props.fetchStateData();
+     this.props.fetchBrandsData();
 
     this.touchAll = this.touchAll.bind(this)
     this.state = {
@@ -135,9 +136,9 @@ class Register extends Component {
       email: '',
       firstName: '',
       lastname: '',
-      us_state: 0,
-      companyName: '',
+      us_state: '',
       mohawkBrands: '',
+      companyName: '',
       us_state_error: false,
       mohawk_error: false,
       modal: false
@@ -181,11 +182,6 @@ class Register extends Component {
     });
 */
     const appBaseURL = process.env.REACT_APP_API_URL;
-
-    var brands_ = this.state.mohawkBrands.map(function(item) {
-      return  item.value;
-    }).join(',');
-
      axios.post(appBaseURL + 'dealers', { 
             ownerfirstname: values.firstName,
             ownerlastname: values.lastName,
@@ -199,7 +195,7 @@ class Register extends Component {
             storecity: values.city,
             storestate: this.state.us_state.value,
             storezip: values.zipcode,
-            brands: brands_
+            brands: this.state.mohawkBrands.value
        })
           .then((result) => {
             this.setState({ submitSuccess: true });
@@ -228,21 +224,19 @@ class Register extends Component {
       }
     }
   }
-
-  saveMohawkChanges = (value) => {
-    this.setState({ mohawkBrands : value, mohawk_error: false });
-  }
-
 /*
   saveMohawkChanges = (value) => {
-
+    this.setState({ mohawkBrands: value, mohawk_error: false });
+  }
+*/
+  saveMohawkChanges = (value) => {
     this.setState(state => {
       return {
         mohawkBrands: value
       };
     });
   }
-*/
+
   handleMohawkBlur = () => {
     if (this.state.mohawkBrands === null) {
       this.setState({ mohawk_error: true })
@@ -455,7 +449,7 @@ class Register extends Component {
                                             onChange={this.saveMohawkChanges}
                                             onBlur={() => this.handleMohawkBlur()}
                                             className={classNames(this.state.mohawk_error ? 'error-select' : '')}
-                                            multi
+                                            
                                           />
                                         )}
                                       />
@@ -581,21 +575,19 @@ class Register extends Component {
 }
 
 //export default Register;
-
-
 const mapStateToProps = ({ states, brands }) => {
   const { stateData } = states;
   const { brandData } = brands;
-  return { stateData, brandData };
+  return { stateData,brandData };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchStateData: () => {
-      dispatch(stateActions.fetchStates());
+      dispatch(fetchStates());
     },
     fetchBrandsData: () => {
-      dispatch(brandActions.fetchBrands());
+      dispatch(fetchBrands());
     },
   }
 }
